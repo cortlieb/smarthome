@@ -4,7 +4,9 @@ esphome:
 
   on_boot:
     then:
+      - output.turn_off: LED_red
       - output.turn_off: LED_green
+      - output.turn_off: LED_blue
 
 esp8266:
   board: d1_mini
@@ -35,6 +37,27 @@ output:
   - platform: gpio
     pin: D0
     id: "LED_green"
+
+  - platform: gpio
+    pin: D7
+    id: "LED_red"
+
+  - platform: gpio
+    pin: D3
+    id: "LED_blue"
+
+switch:
+  - platform: output
+    name: "LED rot"
+    output: "LED_red"
+
+  - platform: output
+    name: "LED gruen"
+    output: "LED_green"
+
+  - platform: output
+    name: "LED blau"
+    output: "LED_blue"
 
 time:
   - platform: homeassistant
