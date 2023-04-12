@@ -77,13 +77,14 @@ sensor:
 spi:
   clk_pin: D6 #SCL
   mosi_pin: D5 #SDA
+
 display:
   - platform: st7735
     model: "INITR_BLACKTAB"
     reset_pin: D4 #RES
     cs_pin: D1 #CS
     dc_pin: D2 #DC
-    rotation: 90
+    rotation: 180
     device_width: 128
     device_height: 160
     col_start: 0
@@ -91,13 +92,13 @@ display:
     eight_bit_color: True
     update_interval: 5s
     lambda: |-
-      it.strftime(0, 0, id(font3), TextAlign::TOP_LEFT, "%d", id(esptime).now());
+      it.strftime(0, 0, id(font3), TextAlign::TOP_LEFT, "%d.", id(esptime).now());
       it.strftime(0, 25, id(font2), TextAlign::TOP_LEFT, "%b", id(esptime).now());
-      it.strftime(160, 0, id(font4), TextAlign::TOP_RIGHT, "%H:%M", id(esptime).now());
-      it.rectangle(0, 45, 160, 40, Color(255,171,0));
+      it.strftime(128, 0, id(font4), TextAlign::TOP_RIGHT, "%H:%M", id(esptime).now());
+      it.rectangle(0, 45, 128, 40, Color(255,171,0));
       it. printf(5, 44, id(font1), TextAlign::TOP_LEFT , " Christian ");
       it.printf(5, 82, id(font4), Color(255,171,0), TextAlign::BASELINE_LEFT , "%.1f°C", id(christian_temp).state);
-      it.rectangle(0, 88, 160, 40, Color(64,70,215));
+      it.rectangle(0, 88, 128, 40, Color(64,70,215));
       it. printf(5, 87, id(font1), TextAlign::TOP_LEFT , " Aussen ");
       it.printf(5, 125, id(font4), Color(64,70,215), TextAlign::BASELINE_LEFT , "%.1f°C", id(aussen_temp).state);
 
@@ -108,9 +109,37 @@ font:
   - file: "LiberationSans-Regular.ttf"
     id: font2
     size: 18
+    glyphs:
+      [
+        "A",
+        "D",
+        "F",
+        "I",
+        "J",
+        "M",
+        "O",
+        "S",
+        "a",
+        "b",
+        "c",
+        "e",
+        "g",
+        "l",
+        "n",
+        "o",
+        "p",
+        "r",
+        "t",
+        "u",
+        "v",
+        "y",
+      ]
   - file: "LiberationSans-Regular.ttf"
     id: font3
     size: 24
+    glyphs: ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "."]
   - file: "LiberationSans-Regular.ttf"
     id: font4
     size: 38
+    glyphs:
+      ["°", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ":", ".", "C"]
